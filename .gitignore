@@ -1,0 +1,8 @@
+.vscode/*
+.qodo/*
+build/
+build-console/
+tests/*
+
+.DS_Store
+chess
