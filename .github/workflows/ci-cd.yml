@@ -7,6 +7,28 @@ on:
     branches: [ main ]
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake libx11-dev
+        
+    - name: Build desktop version
+      run: |
+        mkdir -p build && cd build
+        cmake ..
+        make
+        
+    - name: Build console version
+      run: |
+        mkdir -p build-console && cd build-console
+        cmake -DNO_GRAPHICS=ON ..
+        make
         
   build-web:
     runs-on: ubuntu-latest
@@ -52,6 +74,7 @@ jobs:
         
   build-docker:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     
     steps:
     - uses: actions/checkout@v4
@@ -61,12 +84,25 @@ jobs:
       
     - name: Login to Docker Hub
       uses: docker/login-action@v3
+      if: ${{ secrets.DOCKERHUB_USERNAME != '' && secrets.DOCKERHUB_TOKEN != '' }}
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         
+    - name: Build Docker image (no push)
+      uses: docker/build-push-action@v5
+      if: ${{ secrets.DOCKERHUB_USERNAME == '' || secrets.DOCKERHUB_TOKEN == '' }}
+      with:
+        context: .
+        target: web-production
+        push: false
+        tags: chess-engine:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
+      if: ${{ secrets.DOCKERHUB_USERNAME != '' && secrets.DOCKERHUB_TOKEN != '' }}
       with:
         context: .
         target: web-production

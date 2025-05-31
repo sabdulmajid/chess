@@ -1,7 +1,7 @@
 #include "web_interface.h"
 #include <sstream>
 #include <algorithm>
-#include <json/json.h>
+// Note: Simplified version without jsoncpp for WebAssembly compatibility
 
 WebInterface::WebInterface() : game(nullptr) {
     // Initialize game will be called from startNewGame
@@ -56,56 +56,43 @@ void WebInterface::resetGame() {
 std::string WebInterface::getBoardState() const {
     if (!game) return "{}";
     
-    Json::Value root;
-    Json::Value board(Json::arrayValue);
+    std::stringstream ss;
+    ss << "{\"board\":[";
     
-    // Convert the internal board state to JSON
+    // Convert the internal board state to simple JSON string
     for (int row = 0; row < 8; ++row) {
-        Json::Value boardRow(Json::arrayValue);
+        if (row > 0) ss << ",";
+        ss << "[";
         for (int col = 0; col < 8; ++col) {
+            if (col > 0) ss << ",";
             // This would need to access the game's board state
-            // Piece* piece = game->getBoard()->getSquare(row, col);
-            Json::Value square;
-            square["piece"] = ""; // piece ? piece->getPieceType() : "";
-            square["color"] = ""; // piece ? (piece->getIsWhite() ? "white" : "black") : "";
-            square["position"] = positionToString(row, col);
-            boardRow.append(square);
+            // For now, return empty squares
+            ss << "{\"piece\":\"\",\"color\":\"\",\"position\":\"" 
+               << positionToString(row, col) << "\"}";
         }
-        board.append(boardRow);
+        ss << "]";
     }
     
-    root["board"] = board;
-    root["turn"] = "white"; // This should come from game state
-    
-    Json::StreamWriterBuilder builder;
-    return Json::writeString(builder, root);
+    ss << "],\"turn\":\"white\"}";
+    return ss.str();
 }
 
 std::string WebInterface::getGameStatus() const {
     if (!game) return "{\"status\":\"no_game\"}";
     
-    Json::Value status;
-    status["status"] = "playing";
-    status["turn"] = "white"; // This should come from game state
-    status["check"] = false;
-    status["checkmate"] = false;
-    status["stalemate"] = false;
-    
-    Json::StreamWriterBuilder builder;
-    return Json::writeString(builder, status);
+    std::stringstream ss;
+    ss << "{\"status\":\"playing\",\"turn\":\"white\","
+       << "\"check\":false,\"checkmate\":false,\"stalemate\":false}";
+    return ss.str();
 }
 
 std::string WebInterface::getPossibleMoves(const std::string& position) const {
     if (!game) return "[]";
     
     auto pos = parsePosition(position);
-    Json::Value moves(Json::arrayValue);
-    
     // Generate possible moves for the piece at this position
     // This would interface with the existing move generation logic
-    
-    Json::StreamWriterBuilder builder;
-    return Json::writeString(builder, moves);
+    return "[]"; // Placeholder - empty moves array
 }
 
 bool WebInterface::isValidMove(const std::string& from, const std::string& to) const {

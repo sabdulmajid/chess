@@ -32,6 +32,8 @@ SOURCES=(
     "src/players/player.cpp"
     "src/players/human.cpp"
     "src/players/computer.cpp"
+    "src/ai/advanced_ai.cpp"
+    "src/ai/ai_factory.cpp"
     "src/observers/textobserver.cpp"
     "src/web/web_interface.cpp"
 )
@@ -44,22 +46,24 @@ INCLUDE_DIRS=(
     "-Iinclude/players"
     "-Iinclude/observers"
     "-Iinclude/web"
+    "-Iinclude/ai"
 )
 
 EMCC_FLAGS=(
     "-std=c++17"
     "-O3"
-    "-s WASM=1"
-    "-s EXPORTED_RUNTIME_METHODS=['ccall','cwrap']"
-    "-s ALLOW_MEMORY_GROWTH=1"
-    "-s MODULARIZE=1"
-    "-s EXPORT_NAME='ChessModule'"
-    "-s ENVIRONMENT='web'"
-    "-s FILESYSTEM=0"
-    "-s MALLOC=emmalloc"
+    "-sWASM=1"
+    "-sEXPORTED_RUNTIME_METHODS=ccall,cwrap"
+    "-sALLOW_MEMORY_GROWTH=1"
+    "-sMODULARIZE=1"
+    "-sEXPORT_NAME=ChessModule"
+    "-sENVIRONMENT=web"
+    "-sFILESYSTEM=0"
+    "-sMALLOC=emmalloc"
     "-DWEB_VERSION"
+    "-DNO_GRAPHICS"
     "--bind"
-    "--pre-js web/pre.js"
+    "--pre-js=web/pre.js"
 )
 
 # Build command
