@@ -1,0 +1,5 @@
+tests/*
+.vscode/*
+.qodo/*
+
+.DS_Store
