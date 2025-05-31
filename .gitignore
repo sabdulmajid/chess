@@ -1,5 +1,6 @@
 tests/*
 .vscode/*
 .qodo/*
+build/
 
 .DS_Store
