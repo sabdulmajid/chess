@@ -22,6 +22,7 @@ include_directories(include/players)
 include_directories(include/observers)
 include_directories(include/web)
 include_directories(include/graphics)
+include_directories(include/ai)
 
 # Find packages and set include paths
 find_package(X11)
@@ -34,6 +35,7 @@ file(GLOB_RECURSE PIECE_SOURCES "src/pieces/*.cpp")
 file(GLOB_RECURSE BOARD_SOURCES "src/board/*.cpp")
 file(GLOB_RECURSE GAME_SOURCES "src/game/*.cpp")
 file(GLOB_RECURSE PLAYER_SOURCES "src/players/*.cpp")
+file(GLOB_RECURSE AI_SOURCES "src/ai/*.cpp")
 
 # Observer sources (conditionally exclude graphics observer)
 if(NO_GRAPHICS)
@@ -53,6 +55,7 @@ add_library(ChessCore STATIC
     ${BOARD_SOURCES}
     ${GAME_SOURCES}
     ${PLAYER_SOURCES}
+    ${AI_SOURCES}
     ${OBSERVER_SOURCES}
 )
 
