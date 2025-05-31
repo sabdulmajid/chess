@@ -1,5 +1,7 @@
 .vscode/*
 .qodo/*
 build/
+build-console/
 
 .DS_Store
+chess
