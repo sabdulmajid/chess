@@ -1,0 +1,68 @@
+setup
++ K h1
++ k a8
++ Q d1
++ q d8
++ B c1
++ b c8
++ R a1
++ r a8
++ N b1
++ n b8
++ P a2
++ p a7
++ P b2
++ p b7
++ P c2
++ p c7
++ P d2
++ p d7
++ P e2
++ p e7
++ P f2
++ p f7
++ P g2
++ p g7
++ P h2
++ p h7
+- a2
+- h7
+= black
++ P a3
++ p h6
+= white
++ B f1
++ b f8
++ N g1
++ n g8
+- g8
+- f1
++ N g8
++ B f1
+= black
+- f1
++ R f1
++ k e8
++ Q e1
+- e1
+= white
++ P a2
++ p h7
++ P a4
++ p h5
++ P b4
++ p g5
+= black
+- h5
+- g5
++ k e8
+= white
+- a4
+- a2
++ P a5
++ k e8
+done
+game human computer3
+move a5 a6
+move 
+move a7 a8 Q

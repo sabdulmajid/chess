@@ -1,0 +1,15 @@
+==182587== Memcheck, a memory error detector
+==182587== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==182587== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==182587== Command: ./chess
+==182587== Parent PID: 167928
+==182587== 
+==182587== 
+==182587== HEAP SUMMARY:
+==182587==     in use at exit: 0 bytes in 0 blocks
+==182587==   total heap usage: 3,588 allocs, 3,588 frees, 282,282 bytes allocated
+==182587== 
+==182587== All heap blocks were freed -- no leaks are possible
+==182587== 
+==182587== For lists of detected and suppressed errors, rerun with: -s
+==182587== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)

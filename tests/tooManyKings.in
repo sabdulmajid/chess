@@ -1,0 +1,11 @@
+setup
++ k a1 
++ k a2 
+done 
+setup 
++ K a2
++ K a1 
+done 
+setup 
++ p a1 
+done 

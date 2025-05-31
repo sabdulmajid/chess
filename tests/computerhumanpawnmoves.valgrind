@@ -1,0 +1,15 @@
+==179885== Memcheck, a memory error detector
+==179885== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==179885== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==179885== Command: ./chess
+==179885== Parent PID: 167928
+==179885== 
+==179885== 
+==179885== HEAP SUMMARY:
+==179885==     in use at exit: 0 bytes in 0 blocks
+==179885==   total heap usage: 227,040 allocs, 227,040 frees, 7,396,270 bytes allocated
+==179885== 
+==179885== All heap blocks were freed -- no leaks are possible
+==179885== 
+==179885== For lists of detected and suppressed errors, rerun with: -s
+==179885== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
