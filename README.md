@@ -836,10 +836,6 @@ cd build/web
 vercel --prod
 ```
 
-## Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
 ### Development Setup
 
 ```bash
