@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # Web version for production
+  chess-web:
+    build:
+      context: .
+      target: web-production
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: unless-stopped
+    
+  # Development web server
+  chess-web-dev:
+    build:
+      context: .
+      target: web-builder
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - /app/build
+    working_dir: /app
+    command: >
+      sh -c "
+        ./build_web.sh &&
+        cd build/web &&
+        python3 -m http.server 8080
+      "
+    profiles:
+      - dev
+      
+  # Desktop version (for testing)
+  chess-desktop:
+    build:
+      context: .
+      target: desktop-production
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      - DISPLAY=${DISPLAY}
+    network_mode: host
+    profiles:
+      - desktop
+      
+  # Database for game storage (future use)
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: chess_games
+      POSTGRES_USER: chess
+      POSTGRES_PASSWORD: chess_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    profiles:
+      - database
+      
+  # Redis for session management (future use)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    profiles:
+      - cache
+
+volumes:
+  postgres_data:
+  redis_data:
