@@ -1,0 +1,51 @@
+{
+  "name": "chess-engine-web",
+  "version": "1.0.0",
+  "description": "Advanced Chess Engine with WebAssembly support",
+  "main": "web/index.html",
+  "scripts": {
+    "build": "./build_web.sh",
+    "serve": "cd build/web && python3 -m http.server 8080",
+    "dev": "concurrently \"npm run build\" \"npm run serve\"",
+    "lint": "eslint web/*.js",
+    "format": "prettier --write web/*.{js,css,html}",
+    "test": "jest",
+    "docker:build": "docker build -t chess-engine .",
+    "docker:run": "docker run -p 8080:80 chess-engine",
+    "docker:dev": "docker-compose --profile dev up",
+    "deploy": "npm run build && gh-pages -d build/web"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/chess-engine.git"
+  },
+  "keywords": [
+    "chess",
+    "webassembly",
+    "cpp",
+    "ai",
+    "game",
+    "minimax"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/chess-engine/issues"
+  },
+  "homepage": "https://github.com/yourusername/chess-engine#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "gh-pages": "^6.1.1",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
